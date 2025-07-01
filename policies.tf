@@ -6,18 +6,18 @@
 # You can read more about plan policies here:
 #
 # https://docs.spacelift.io/concepts/policy/terraform-plan-policy
-resource "spacelift_policy" "plan" {
-  type = "PLAN"
+# resource "spacelift_policy" "plan" {
+#   type = "PLAN"
 
-  name = "Enforce password strength"
-  body = file("${path.module}/policies/plan.rego")
-}
+#   name = "Enforce password strength"
+#   body = file("${path.module}/policies/plan.rego")
+# }
 
 # Plan policies only take effect when attached to the stack.
-resource "spacelift_policy_attachment" "plan" {
-  policy_id = spacelift_policy.plan.id
-  stack_id  = spacelift_stack.managed.id
-}
+# resource "spacelift_policy_attachment" "plan" {
+#   policy_id = spacelift_policy.plan.id
+#   stack_id  = spacelift_stack.managed.id
+# }
 
 # PUSH POLICY
 #
@@ -29,18 +29,18 @@ resource "spacelift_policy_attachment" "plan" {
 # You can read more about push policies here:
 #
 # https://docs.spacelift.io/concepts/policy/git-push-policy
-resource "spacelift_policy" "push" {
-  type = "GIT_PUSH"
+# resource "spacelift_policy" "push" {
+#   type = "GIT_PUSH"
 
-  name = "Ignore commits outside the project root"
-  body = file("${path.module}/policies/push.rego")
-}
+#   name = "Ignore commits outside the project root"
+#   body = file("${path.module}/policies/push.rego")
+# }
 
 # Push policies only take effect when attached to the stack.
-resource "spacelift_policy_attachment" "push" {
-  policy_id = spacelift_policy.push.id
-  stack_id  = spacelift_stack.managed.id
-}
+# resource "spacelift_policy_attachment" "push" {
+#   policy_id = spacelift_policy.push.id
+#   stack_id  = spacelift_stack.managed.id
+# }
 
 # TRIGGER POLICY
 #
@@ -50,25 +50,25 @@ resource "spacelift_policy_attachment" "push" {
 # You can read more about trigger policies here:
 #
 # https://docs.spacelift.io/concepts/policy/trigger-policy
-resource "spacelift_policy" "trigger" {
-  type = "TRIGGER"
+# resource "spacelift_policy" "trigger" {
+#   type = "TRIGGER"
 
-  name = "Trigger stacks that declare an explicit dependency"
-  body = file("${path.module}/policies/trigger.rego")
-}
+#   name = "Trigger stacks that declare an explicit dependency"
+#   body = file("${path.module}/policies/trigger.rego")
+# }
 
 # Trigger policies only take effect when attached to the stack.
-resource "spacelift_policy_attachment" "trigger" {
-  policy_id = spacelift_policy.trigger.id
-  stack_id  = spacelift_stack.managed.id
-}
+# resource "spacelift_policy_attachment" "trigger" {
+#   policy_id = spacelift_policy.trigger.id
+#   stack_id  = spacelift_stack.managed.id
+# }
 
 # Let's attach the policy to the current stack, so that the child stack is
 # triggered, too.
-resource "spacelift_policy_attachment" "trigger-self" {
-  policy_id = spacelift_policy.trigger.id
-  stack_id  = data.spacelift_current_stack.this.id
-}
+# resource "spacelift_policy_attachment" "trigger-self" {
+#   policy_id = spacelift_policy.trigger.id
+#   stack_id  = data.spacelift_current_stack.this.id
+# }
 
 # LOGIN POLICY
 #
@@ -81,9 +81,9 @@ resource "spacelift_policy_attachment" "trigger-self" {
 # You can read more about login policies here:
 #
 # https://docs.spacelift.io/concepts/policy/login-policy
-resource "spacelift_policy" "login" {
-  type = "LOGIN"
+# resource "spacelift_policy" "login" {
+#   type = "LOGIN"
 
-  name = "DevOps are admins"
-  body = file("${path.module}/policies/login.rego")
-}
+#   name = "DevOps are admins"
+#   body = file("${path.module}/policies/login.rego")
+# }
